@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import './transaction.dart';
+import 'package:flutter_personal_expense/widgets/user_transaction.dart';
+import './widgets/textinput_transaction.dart';
+import './widgets/transaction_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,12 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> transaction = [
-    Transaction(
-        id: 't1', title: 'New Shoes', amount: 3799, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'Bomber Jacket', amount: 899, date: DateTime.now())
-  ];
+
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
@@ -53,87 +49,21 @@ class MyHomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
+            margin: EdgeInsets.all(10),
             width: double.infinity,
             child: Card(
               color: Colors.blue,
-              margin: EdgeInsets.all(10),
-              child: Text(
-                'Chart!',
-                textAlign: TextAlign.center,
-              ),
-              elevation: 5,
-            ),
-          ),
-          Card(
-            elevation: 5,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Title'),
-                    controller: titleController,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Amount'),
-                    controller: amountController,
-                  ),
-                  FlatButton(
-                    child: Text('Add Transaction'),
-                    textColor: Colors.blue,
-                    onPressed: () {
-                      print(titleController.text);
-                    },
-                  )
-                ],
-              ),
-            ),
-          ),
-          Column(
-            children: transaction.map((trans) {
-              return Container(
-                width: double.infinity,
-                child: Card(
-                  child: Row(
-                    children: [
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                          color: Colors.blue,
-                          width: 2,
-                        )),
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          trans.amount.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.blue),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            trans.title,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            DateFormat().add_yMd().format(trans.date),
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+              child: Container(
+                margin: EdgeInsets.all(8),
+                child: Text(
+                  'Chart!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                 ),
-              );
-            }).toList(),
-          )
+              ),
+            ),
+          ),
+          UserTransaction(),
         ],
       ),
     );
